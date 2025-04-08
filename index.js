@@ -1,44 +1,35 @@
 import PromptSync from 'prompt-sync';
 const prompt = PromptSync();
+import * as u from "./utils.js";
 
+let scelta = 0;
 let registro;
-let numero_alunni = Number.parseInt(prompt("Numero alunni: "));
-console.log("\n")
 
-registro = memorizzaUtenti(numero_alunni);
-console.log(registro)
+do{
+    console.log("\nMenù.\n 1-Memorizza alunni.\n 2-Conta alunni.\n 3-Stampa alunni maggiorenni.\n 4-Elimina alunni maggiorenni.\n 5-Uscita");
+    scelta = Number.parseInt(prompt("Fai una scelta: "));
 
-console.log("\nNumero alunni maggiorenni: " + contaAlunni(registro));
-
-console.log("\nNome alunni maggiorenni: ")
-stampaAlunni(registro);
-
-
-function memorizzaUtenti(numero_alunni){
-    let oggetto;
-    
-    let utenti = Array.of(numero_alunni);
-
-    for(let i = 0; i < numero_alunni; i++){
-        oggetto = {
-            "Nome" : prompt("Nome alunno: "),
-            "Eta"  : Number.parseInt(prompt("Età alunno: ")),
-        }
-        utenti[i] = oggetto;
-    } 
-    return utenti;   
-}
-
-const contaAlunni = (registro) =>{
-    let cont = 0;
-    registro.forEach(oggetto => {
-        if(oggetto.Eta >= 18) cont++;
-    });
-    return cont;
-}
-
-const stampaAlunni = function(registro){
-    registro.forEach(oggetto => {
-        if(oggetto.Eta >= 18) console.log(oggetto.Nome);
-    });
-}
+    switch(scelta){
+        case 1:
+            let numero_alunni = Number.parseInt(prompt("Numero alunni: "));
+            console.log("\n")
+            registro = u.memorizzaUtenti(numero_alunni);
+            console.log(registro)
+            break;
+        case 2:
+            console.log("\nNumero alunni maggiorenni: " + u.contaAlunni(registro));
+            break;
+        case 3:
+            console.log("\nNome alunni maggiorenni: ")
+            u.stampaAlunni(registro);
+            break;
+        case 4:
+            console.log("\nNuovo registro: ")
+            registro = u.eliminaAlunni(registro);
+            console.log(registro)
+            break;
+        case 5:
+            console.log("\nUscita");
+            break;
+    }
+}while(scelta != 5);

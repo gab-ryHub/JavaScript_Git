@@ -30,3 +30,11 @@ export const stampaAlunni = function(registro){
         if(oggetto.Eta >= 18) console.log(oggetto.Nome);
     });
 }
+
+export const eliminaAlunni = function(registro){
+    registro.map((oggetto, i) =>{
+        if(oggetto.Eta >= 10)
+            registro.splice(i, 1);
+    })
+    return registro
+}
